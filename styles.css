@@ -1,7 +1,7 @@
 :root {
   --bg-color: #fff;
   --text-color: #000;
-  --accent-color: rgb(225,89,0);
+  --accent-color: rgb(225, 89, 0);
   --section-bg: black;
 }
 
@@ -23,12 +23,12 @@ body {
 }
 body.dark-mode {
   background-color: #121212;
-  color: rgb(225,89,0);
+  color: rgb(225, 89, 0);
 }
 
 body.dark-mode header {
   background-color: #1e1e1e;
-  color: rgb(225,89,0);
+  color: rgb(225, 89, 0);
 }
 
 body.dark-mode section {
@@ -36,53 +36,53 @@ body.dark-mode section {
 }
 
 body.dark-mode a {
-  color: rgb(225,89,0);
+  color: rgb(225, 89, 0);
 }
 
 body.dark-mode .about_contents {
   background-color: #333;
-  color: rgb(225,89,0);
+  color: rgb(225, 89, 0);
 }
 
 body.dark-mode .short_description,
 body.dark-mode form input,
 body.dark-mode form textarea {
   background-color: #000000;
-  color: rgb(225,89,0);
-  border-color: rgb(225,89,0);
+  color: rgb(225, 89, 0);
+  border-color: rgb(225, 89, 0);
 }
 
 body.dark-mode #home {
   background: #2a2a2a;
-  color: rgb(225,89,0);
-  border-color: rgb(225,89,0);
+  color: rgb(225, 89, 0);
+  border-color: rgb(225, 89, 0);
 }
 body.dark-mode #about {
   background: #1d1d1d;
-  color: rgb(225,89,0);
-  border-color: rgb(225,89,0);
+  color: rgb(225, 89, 0);
+  border-color: rgb(225, 89, 0);
 }
 
 body.dark-mode #projects {
   background: #2a2a2a;
-  color: rgb(225,89,0);
-  border-color: rgb(225,89,0);
+  color: rgb(225, 89, 0);
+  border-color: rgb(225, 89, 0);
 }
 
 body.dark-mode #skills {
   background: #1d1d1d;
   color: rgb(0, 0, 0);
-  border-color: rgb(225,89,0);
+  border-color: rgb(225, 89, 0);
 }
 
 body.dark-mode #skills h2 {
-  color: rgb(225,89,0);
+  color: rgb(225, 89, 0);
 }
 
 body.dark-mode #contact {
   background: #2a2a2a;
-  color: rgb(225,89,0);
-  border-color: rgb(225,89,0);
+  color: rgb(225, 89, 0);
+  border-color: rgb(225, 89, 0);
 }
 
 header {
@@ -93,11 +93,18 @@ header {
   color: #fff;
   z-index: 1000;
   border-bottom: rgb(225, 89, 0) solid 1px;
-  border-image: linear-gradient(90deg, #ffffff, rgb(225,89,0), rgb(255, 255, 255)) 1;
+  border-image: linear-gradient(
+      90deg,
+      #ffffff,
+      rgb(225, 89, 0),
+      rgb(255, 255, 255)
+    )
+    1;
   opacity: 82%;
 }
 
-header, section {
+header,
+section {
   background-color: var(--section-bg);
 }
 
@@ -140,10 +147,10 @@ nav a:hover {
   display: none;
   color: rgb(225, 89, 0);
   font-size: 30px;
-  padding:0 3px 3px 0;
+  padding: 0 3px 3px 0;
 }
 
-.theme-button{
+.theme-button {
   display: flex;
   position: fixed;
   top: 60px;
@@ -155,11 +162,11 @@ nav a:hover {
   cursor: pointer;
   padding: 8px 16px;
   font-size: 14px;
-  background-color: rgb(255,89,0);
+  background-color: rgb(255, 89, 0);
   border: none;
 }
 
-.theme-button:hover{
+.theme-button:hover {
   background: rgb(254, 105, 6);
   outline: 1px solid rgb(225, 89, 0);
   outline-offset: 1px;
@@ -167,7 +174,7 @@ nav a:hover {
 
 section {
   height: 100vh;
-  padding-top: 60px; 
+  padding-top: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,7 +182,7 @@ section {
 }
 
 #home {
-  background: #f5f5f5;
+  background: #05e159;
 }
 
 .profile-container {
@@ -223,12 +230,12 @@ section {
 #about {
   background: #e0e0e0;
   height: 50vh;
-  padding-top: 40px; 
+  padding-top: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 60px;  
+  padding: 60px;
 }
 
 #projects {
@@ -255,13 +262,12 @@ section {
 #contact {
   background: #a0a0a0;
   color: black;
-  height:100vh;
+  height: 100vh;
   padding-top: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  
 }
 
 form {
@@ -351,7 +357,7 @@ section p {
   cursor: pointer;
   padding: 8px 16px;
   font-size: 14px;
-  background-color: rgb(255,89,0);
+  background-color: rgb(255, 89, 0);
   border: none;
 }
 
@@ -373,7 +379,7 @@ section p {
 }
 
 .modalWindow:hover {
-  outline: 1px solid rgb(255,89,0);
+  outline: 1px solid rgb(255, 89, 0);
   outline-offset: 1px;
 }
 
@@ -439,7 +445,7 @@ section p {
   width: 200px;
   height: auto;
   object-fit: cover;
-  outline: solid 1px rgb(255, 89,0);
+  outline: solid 1px rgb(255, 89, 0);
   outline-offset: 1px;
   transition: transform 0.3s ease;
 }
@@ -478,7 +484,6 @@ section p {
 }
 
 @media screen and (max-width: 950px) {
- 
   .header-container {
     display: flex;
     align-items: center;
@@ -489,7 +494,6 @@ section p {
     flex-direction: column;
   }
   .profile-container {
-    
     align-items: center;
     padding: 20px;
   }
@@ -522,7 +526,8 @@ section p {
     flex-wrap: nowrap;
   }
   form input,
-  form textarea, form button {
+  form textarea,
+  form button {
     width: 100%;
     box-sizing: border-box;
   }
@@ -564,7 +569,6 @@ section p {
 }
 
 @media screen and (max-width: 768px) {
-  
   .header-container {
     display: flex;
     align-items: center;
@@ -608,7 +612,8 @@ section p {
     flex-wrap: nowrap;
   }
   form input,
-  form textarea, form button {
+  form textarea,
+  form button {
     width: 100%;
     box-sizing: border-box;
   }
@@ -666,7 +671,6 @@ section p {
     font-size: 12px;
   }
   .profile-container {
-    
     align-items: center;
     text-align: center;
   }
@@ -696,9 +700,9 @@ section p {
     width: 90vw;
     height: auto;
   }
-  form input, form textarea {
+  form input,
+  form textarea {
     width: 100%;
     font-size: 14px;
   }
-  
 }

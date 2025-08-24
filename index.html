@@ -9,7 +9,14 @@
       content="Architect, vector designer, web developer"
     />
     <link rel="stylesheet" href="styles.css" />
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/your_kit_id.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="icon" href="/images/logo.webp" />
   </head>
   <body>
@@ -22,47 +29,48 @@
         </div>
         <nav>
           <div class="nav-links" id="navLinks">
-            <div class="fa fa-bars">☰</div>
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#projects">Projects</a>
             <a href="#skills">Skills</a>
             <a href="./gallery.html">Gallery</a>
             <a href="#contact">Contact</a>
+            <button id="darkModeToggle" aria-label="Toggle dark mode">
+              <i id="darkModeIcon" class="fa-solid fa-moon"></i>
+            </button>
+            <button class="hamburger" aria-label="Navigation menu">
+              <i class="fa fa-bars"></i>
+            </button>
           </div>
         </nav>
       </div>
     </header>
-    <div class="theme-toggle-container">
-      <button id="darkModeToggle" class="theme-button">THEME</button>
-    </div>
+    <div></div>
     <section id="home">
-      <h1>Welcome to My Portfolio</h1>
       <div class="profile-container">
         <img
           src="/images/profile_picture.webp"
           alt="Binyam Angamo. Profile picture"
           class="profile-image"
         />
-        <p class="short-description">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam,
-          reprehenderit recusandae iure delectus consequuntur rem cum corrupti
-          soluta dolor totam ea similique. Maxime culpa incidunt voluptatum ea
-          numquam eligendi enim!.
-        </p>
-      </div>
-    </section>
-
-    <section id="about">
-      <h2>About Me</h2>
-      <div class="about">
-        <p class="about-contents">Architect</p>
-        <p class="about-contents">Vector designer</p>
-        <p class="about-contents">Photographer</p>
-        <p class="about-contents">Entrepreneur</p>
-        <p class="about-contents">Full stack web developer</p>
-        <p class="about-contents">Self claimed cook</p>
-        <button class="modalTriggerBtn">Learn more</button>
+        <div class="profile-text">
+          <h1>Welcome,</h1>
+          <p class="short-description">
+            I'm Binyam Angamo. A passionate student of life.
+          </p>
+          <div class="social-icons">
+            <a href="https://github.com/Binyambc" aria-label="GitHub Profile">
+              <i class="fab fa-github"></i>
+            </a>
+            <br />
+            <a
+              href="https://www.linkedin.com/in/binyam-angamo-0611172b9/"
+              aria-label="linkedin Profile"
+            >
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -120,21 +128,135 @@
     </section>
 
     <section id="skills">
-      <h2>Skills</h2>
       <div>
-        <p style="background: #d0693a">
-          HTML, CSS, JavaScript, React Basics, Laravel baiscs
-        </p>
-        <br />
-        <p style="background: #f49e4c">AutoCAD, ArchiCAD, SketchUP!</p>
-        <br />
-        <p style="background: #f5ee9e">
-          Illustrator, Affinity Designer, Figma basics
-        </p>
-        <br />
-        <p style="background: #3b8ea5">
-          Amharic(mother tongue), English, Finnish, Tigrigna
-        </p>
+        <div class="round_carousel">
+          <div class="center-text">SKILLS</div>
+          <div class="active-label"></div>
+          <img
+            class="icon"
+            loading="lazy"
+            src="images/logos/htmlLogo.webp"
+            alt="HTML"
+          />
+          <img
+            class="icon"
+            loading="lazy"
+            src="images/logos/javascriptLogo.webp"
+            alt="JavaScript"
+          />
+          <img
+            class="icon"
+            loading="lazy"
+            src="images/logos/reactLogo.webp"
+            alt="React"
+          />
+          <img
+            class="icon"
+            loading="lazy"
+            src="images/logos/cssLogo.webp"
+            alt="css"
+          />
+          <img
+            class="icon"
+            loading="lazy"
+            src="images/logos/autocadLogo.webp"
+            alt="AutoCAD"
+          />
+          <img
+            class="icon"
+            loading="lazy"
+            src="images/logos/sketchupLogo.webp"
+            alt="SketchUP!"
+          />
+          <img
+            class="icon"
+            loading="lazy"
+            src="images/logos/affinityDesignerLogo.webp"
+            alt="Affinity Designer"
+          />
+          <img
+            class="icon"
+            loading="lazy"
+            src="images/logos/figmaLogo.webp"
+            alt="Figma"
+          />
+          <img
+            class="icon"
+            loading="lazy"
+            src="images/logos/githubLogo.webp"
+            alt="GitHub"
+          />
+          <img
+            class="icon"
+            loading="lazy"
+            src="images/logos/officeLogo.webp"
+            alt="Office"
+          />
+        </div>
+        <p>🇪🇹 Amharic(mother tongue) 🇬🇧 English 🇫🇮 Finnish 🇪🇹 Tigrigna</p>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2>About Me</h2>
+      <div class="about">
+        <div class="about-card">
+          <h3>Architect</h3>
+          <p class="about-contents">
+            Studied Architecture and Urban Planning at Addis Ababa University
+            and graduated with a BSc. in 2007. After graduation, I spent
+            sometime time working on private residences, apartment and hotel
+            buildings.
+          </p>
+        </div>
+        <div class="about-card">
+          <h3>Vector Designer</h3>
+          <p class="about-contents">
+            My choice of appllication for vector so far has been Affinity
+            designer. Most of the works that I have done are expressions of my
+            passion towards my roots from Ethiopia.
+          </p>
+        </div>
+        <div class="about-card">
+          <h3>Photographer</h3>
+          <p class="about-contents">
+            This has been a passion that I pushed with the least convinient
+            possible tools. I knew anyway that I have keen eye for good
+            juxtaposition and framing. My go to subjects are urban corridors
+            mostly reflected in puddles.
+          </p>
+        </div>
+        <div class="about-card">
+          <h3>Entrepreneur</h3>
+          <p class="about-contents">
+            I have spent over five years as an entrepreneur running a small plc
+            providing delivery services and export. After this I also co-founded
+            and run a furniture recycling and upcycling firm where me and my
+            business partner praticed circular economy extending the life cycle
+            of furnitures that otherwise would have been regarded as waste.
+          </p>
+        </div>
+        <div class="about-card">
+          <h3>Full stack web developer</h3>
+          <p class="about-contents">
+            I have always been curios about coding and but never got the chance
+            to study it. On January of 2025, I joined the Full stack web
+            developer program provide at Business College Helsinki. I have now a
+            much better understand of HTML, JS, CSS and some basics of React,
+            PHP, Laravel and Database systems. Git/GitHub is the main platform
+            we use for version control whilst studiyng some of AWS services.
+          </p>
+        </div>
+        <div class="about-card">
+          <h3>Self claimed cook</h3>
+          <p class="about-contents">
+            This is a passion that formed out of neccessity. I did work in at a
+            restaurant during my studies but at the same time living away from
+            home where you have to do everything yourself forced me to learn to
+            cook and set plates in appealing manners.
+          </p>
+        </div>
+        <h4>Details on each projects coming in the next phase.</h3>
       </div>
     </section>
 
@@ -153,17 +275,9 @@
         <button type="submit">Send Message</button>
       </form>
     </section>
-    <button class="back_to_top_btn" id="topBtn" title="Go to top">
-      Back to top
+    <button class="back_to_top_btn" id="topBtn" aria-label="Back to top">
+      <i class="fa-solid fa-arrow-up"></i>
     </button>
-    <div class="modalWindow hidden">
-      <button class="closeModal">x</button>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, quas
-        iusto. Quis quidem velit vel aut facilis, eligendi distinctio reiciendis
-        cum dicta maiores porro nemo harum, non quaerat quo dolores.
-      </p>
-    </div>
     <script src="main.js"></script>
   </body>
 </html>

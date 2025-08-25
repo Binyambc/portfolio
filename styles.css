@@ -204,6 +204,11 @@ section {
   padding-left: 0;
 } 
 
+.dark-mode .profile-text h1, 
+.profile-text p {
+  color: rgb(225, 89, 0);
+} 
+
 .short-description {
   max-width: 350px;
   font-size: 18px;
@@ -275,6 +280,10 @@ section {
 }
 
 .dark-mode .about h3 {
+  color: rgb(225, 89, 0);
+}
+
+.dark-mode .about p {
   color: rgb(225, 89, 0);
 }
 

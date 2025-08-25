@@ -6,7 +6,7 @@ Features
 
 Header navigation with anchor links
 
-Sections: Home, Projects, Skills, About, Gallery and Contact
+Sections: Home, Projects, Skills, About, Contact
 
 Dark/Light mode toggle with icon
 
@@ -22,7 +22,7 @@ Tech Stack
 
 HTML5
 
-CSS3 (flexbox, media queries)
+CSS3
 
 JavaScript (ES6)
 

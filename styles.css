@@ -413,7 +413,7 @@ h2 {
 }
 
 .profile-text h1 {
-  margin: -0.15em 0 12px 0;
+  margin: -0.4em 0 12px 0;
   font-size: 25px;
   font-weight: 300;
   color: var(--accent);
@@ -866,10 +866,6 @@ form button:disabled {
   visibility: visible;
   pointer-events: auto;
   touch-action: none;
-}
-
-body.lightbox-open {
-  overflow: hidden;
 }
 
 .lightbox-content {

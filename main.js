@@ -204,7 +204,6 @@ function initGalleryLightbox() {
 
     const images = Array.from(grid.querySelectorAll('img'));
     let currentIndex = 0;
-    let scrollY = 0;
 
     function open(index) {
         currentIndex = (index + images.length) % images.length;
@@ -213,25 +212,13 @@ function initGalleryLightbox() {
         lightboxImage.alt = img.alt;
         lightbox.classList.add('is-open');
         lightbox.setAttribute('aria-hidden', 'false');
-        scrollY = window.scrollY || document.documentElement.scrollTop;
-        document.body.classList.add('lightbox-open');
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${scrollY}px`;
-        document.body.style.left = '0';
-        document.body.style.right = '0';
         document.body.style.overflow = 'hidden';
     }
 
     function close() {
         lightbox.classList.remove('is-open');
         lightbox.setAttribute('aria-hidden', 'true');
-        document.body.classList.remove('lightbox-open');
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.left = '';
-        document.body.style.right = '';
         document.body.style.overflow = '';
-        window.scrollTo(0, scrollY);
     }
 
     function showPrev() {
@@ -329,15 +316,15 @@ function initContactForm() {
 }
 
 // Initialization order follows page flow: header/nav → theme → scroll/back-to-top → projects → skills → gallery (if present) → contact.
+// Each init wrapped in try/catch so one failure (e.g. on mobile) doesn't break the whole page.
 function init() {
-    initNavigation();
-    initTheme();
-    initScroll();
-    initInfiniteCarousel(".carousel", ".carousel-track", 1);
-    initInfiniteCarousel(".skills-carousel", ".skills-track", 0.6);
-    initGalleryLightbox();
-    initContactForm();
+    try { initNavigation(); } catch (e) { console.warn('initNavigation', e); }
+    try { initTheme(); } catch (e) { console.warn('initTheme', e); }
+    try { initScroll(); } catch (e) { console.warn('initScroll', e); }
+    try { initInfiniteCarousel(".carousel", ".carousel-track", 1); } catch (e) { console.warn('initCarousel', e); }
+    try { initInfiniteCarousel(".skills-carousel", ".skills-track", 0.6); } catch (e) { console.warn('initSkillsCarousel', e); }
+    try { initGalleryLightbox(); } catch (e) { console.warn('initGalleryLightbox', e); }
+    try { initContactForm(); } catch (e) { console.warn('initContactForm', e); }
 }
 
-// Start everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', init);

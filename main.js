@@ -204,6 +204,7 @@ function initGalleryLightbox() {
 
     const images = Array.from(grid.querySelectorAll('img'));
     let currentIndex = 0;
+    let scrollY = 0;
 
     function open(index) {
         currentIndex = (index + images.length) % images.length;
@@ -212,13 +213,25 @@ function initGalleryLightbox() {
         lightboxImage.alt = img.alt;
         lightbox.classList.add('is-open');
         lightbox.setAttribute('aria-hidden', 'false');
+        scrollY = window.scrollY || document.documentElement.scrollTop;
+        document.body.classList.add('lightbox-open');
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
         document.body.style.overflow = 'hidden';
     }
 
     function close() {
         lightbox.classList.remove('is-open');
         lightbox.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
         document.body.style.overflow = '';
+        window.scrollTo(0, scrollY);
     }
 
     function showPrev() {

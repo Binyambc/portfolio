@@ -1,1 +1,4 @@
 .DS_Store
+
+# SonarQube/SonarCloud scanner output (local analysis cache)
+.scannerwork/

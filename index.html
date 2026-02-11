@@ -34,7 +34,6 @@
             <a href="#about">About</a>
             <a href="#projects">Projects</a>
             <a href="#skills">Skills</a>
-            <a href="/gallery">Gallery</a>
             <a href="#contact">Contact</a>
             <button id="darkModeToggle" aria-label="Toggle dark mode">
               <i id="darkModeIcon" class="fa-solid fa-moon"></i>
@@ -207,6 +206,22 @@
     <button class="back_to_top_btn" id="topBtn" aria-label="Back to top">
       <i class="fa-solid fa-arrow-up"></i>
     </button>
+
+    <div id="projectLightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="View project image">
+      <button type="button" class="lightbox-close" id="projectLightboxClose" aria-label="Close">
+        <i class="fa fa-times"></i>
+      </button>
+      <button type="button" class="lightbox-prev" id="projectLightboxPrev" aria-label="Previous image">
+        <i class="fa fa-chevron-left"></i>
+      </button>
+      <button type="button" class="lightbox-next" id="projectLightboxNext" aria-label="Next image">
+        <i class="fa fa-chevron-right"></i>
+      </button>
+      <div class="lightbox-content">
+        <img id="projectLightboxImage" src="" alt="" />
+      </div>
+    </div>
+
     <script src="main.js" defer></script>
   </body>
 </html>

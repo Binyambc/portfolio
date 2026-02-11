@@ -191,25 +191,35 @@ function initInfiniteCarousel(carouselSelector, trackSelector, speed) {
     });
 }
 
-// ===== GALLERY LIGHTBOX =====
-function initGalleryLightbox() {
-    const grid = getElement('.gallery-grid');
-    const lightbox = getElementById('galleryLightbox');
-    const lightboxImage = getElementById('lightboxImage');
-    const closeBtn = getElementById('lightboxClose');
-    const prevBtn = getElementById('lightboxPrev');
-    const nextBtn = getElementById('lightboxNext');
+// ===== PROJECT LIGHTBOX (click carousel image → lightbox with prev/next) =====
+function initProjectLightbox() {
+    const track = getElement('.carousel-track');
+    const lightbox = getElementById('projectLightbox');
+    const lightboxImage = getElementById('projectLightboxImage');
+    const closeBtn = getElementById('projectLightboxClose');
+    const prevBtn = getElementById('projectLightboxPrev');
+    const nextBtn = getElementById('projectLightboxNext');
 
-    if (!grid || !lightbox || !lightboxImage) return;
+    if (!track || !lightbox || !lightboxImage) return;
 
-    const images = Array.from(grid.querySelectorAll('img'));
+    const allImgs = Array.from(track.querySelectorAll('img'));
+    const seen = new Set();
+    const unique = [];
+    allImgs.forEach((img) => {
+        if (!seen.has(img.src)) {
+            seen.add(img.src);
+            unique.push({ src: img.src, alt: img.alt });
+        }
+    });
+    if (unique.length === 0) return;
+
     let currentIndex = 0;
 
     function open(index) {
-        currentIndex = (index + images.length) % images.length;
-        const img = images[currentIndex];
-        lightboxImage.src = img.src;
-        lightboxImage.alt = img.alt;
+        currentIndex = (index + unique.length) % unique.length;
+        const item = unique[currentIndex];
+        lightboxImage.src = item.src;
+        lightboxImage.alt = item.alt;
         lightbox.classList.add('is-open');
         lightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
@@ -221,21 +231,16 @@ function initGalleryLightbox() {
         document.body.style.overflow = '';
     }
 
-    function showPrev() {
-        open(currentIndex - 1);
-    }
-
-    function showNext() {
-        open(currentIndex + 1);
-    }
-
-    images.forEach((img, index) => {
-        safeAddEventListener(img, 'click', () => open(index));
+    safeAddEventListener(track, 'click', (e) => {
+        const img = e.target.closest('img');
+        if (!img) return;
+        const idx = unique.findIndex((u) => u.src === img.src);
+        if (idx >= 0) open(idx);
     });
 
     if (closeBtn) safeAddEventListener(closeBtn, 'click', close);
-    if (prevBtn) safeAddEventListener(prevBtn, 'click', (e) => { e.stopPropagation(); showPrev(); });
-    if (nextBtn) safeAddEventListener(nextBtn, 'click', (e) => { e.stopPropagation(); showNext(); });
+    if (prevBtn) safeAddEventListener(prevBtn, 'click', (e) => { e.stopPropagation(); open(currentIndex - 1); });
+    if (nextBtn) safeAddEventListener(nextBtn, 'click', (e) => { e.stopPropagation(); open(currentIndex + 1); });
 
     safeAddEventListener(lightbox, 'click', (e) => {
         if (e.target === lightbox) close();
@@ -244,8 +249,8 @@ function initGalleryLightbox() {
     document.addEventListener('keydown', (e) => {
         if (!lightbox.classList.contains('is-open')) return;
         if (e.key === 'Escape') close();
-        if (e.key === 'ArrowLeft') showPrev();
-        if (e.key === 'ArrowRight') showNext();
+        if (e.key === 'ArrowLeft') open(currentIndex - 1);
+        if (e.key === 'ArrowRight') open(currentIndex + 1);
     });
 }
 
@@ -315,7 +320,7 @@ function initContactForm() {
     });
 }
 
-// Initialization order follows page flow: header/nav → theme → scroll/back-to-top → projects → skills → gallery (if present) → contact.
+// Initialization order: header/nav → theme → scroll/back-to-top → projects carousel + lightbox → skills → contact.
 // Each init wrapped in try/catch so one failure (e.g. on mobile) doesn't break the whole page.
 function init() {
     try { initNavigation(); } catch (e) { console.warn('initNavigation', e); }
@@ -323,7 +328,7 @@ function init() {
     try { initScroll(); } catch (e) { console.warn('initScroll', e); }
     try { initInfiniteCarousel(".carousel", ".carousel-track", 1); } catch (e) { console.warn('initCarousel', e); }
     try { initInfiniteCarousel(".skills-carousel", ".skills-track", 0.6); } catch (e) { console.warn('initSkillsCarousel', e); }
-    try { initGalleryLightbox(); } catch (e) { console.warn('initGalleryLightbox', e); }
+    try { initProjectLightbox(); } catch (e) { console.warn('initProjectLightbox', e); }
     try { initContactForm(); } catch (e) { console.warn('initContactForm', e); }
 }
 

@@ -491,6 +491,7 @@ h2 {
   height: 300px;
   flex-shrink: 0;
   object-fit: cover;
+  cursor: pointer;
 }
 
 /* Mobile carousel improvements */

@@ -6,7 +6,7 @@ Features
 
 Header navigation with anchor links
 
-Sections: Home, Projects, Skills, About, Contact; Gallery page with lightbox
+Sections: Home, Projects (clickable carousel with lightbox), Skills, About, Contact
 
 Dark/Light mode toggle with icon
 
@@ -43,13 +43,12 @@ Right-click index.html → Open with Live Server
 File Structure
 .
 ├── index.html
-├── gallery.html
 ├── styles.css
 ├── main.js
 ├── api/
 │ └── contact.js
 ├── images/
-│ └── ... (logos, gallery, profile, favicon)
+│ └── ... (project images, logos, profile, favicon)
 └── readme.md
 
 Contact form (when deployed on Vercel)

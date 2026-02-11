@@ -1015,13 +1015,12 @@ form button:disabled {
   }
   
   .about-card {
-    max-width: 100%;
     margin-bottom: 20px;
   }
   
   .about-contents {
     font-size: 14px;
-    text-align: center;
+    text-align: left;
   }
   
   form input,
@@ -1095,15 +1094,12 @@ form button:disabled {
   }
   
   .about-card {
-    max-width: 100%;
     margin-bottom: 20px;
-    text-align: center;
   }
-  
+
   .about-contents {
     font-size: 14px;
-    text-align: center;
-    max-width: 100%;
+    text-align: left;
   }
   
   .carousel-track img {

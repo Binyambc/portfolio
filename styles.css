@@ -19,6 +19,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-spacer-height);
 }
 
 body {
@@ -707,7 +708,16 @@ h2 {
   color: #aaa;
 }
 
+.contact-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 form {
+  position: relative;
   width: 100%;
   max-width: 400px;
   display: flex;

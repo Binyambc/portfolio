@@ -49,7 +49,7 @@ function initNavigation() {
     });
     
     document.addEventListener('click', (e) => {
-        if (!navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+        if (navMenu.classList.contains('active') && !navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
             closeMenu();
         }
     });
@@ -274,6 +274,13 @@ function initContactForm() {
         e.preventDefault();
         if (!form.checkValidity()) {
             form.reportValidity();
+            return;
+        }
+
+        const honeypot = (form.website && form.website.value) ? form.website.value.trim() : '';
+        if (honeypot) {
+            showMessage('Thanks! Your message has been sent.', false);
+            form.reset();
             return;
         }
 

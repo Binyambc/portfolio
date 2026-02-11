@@ -63,6 +63,8 @@ The contact form submits to a Vercel serverless function that sends email via Re
    - `CONTACT_EMAIL` = the email where you want to receive messages (e.g. you@example.com)
 4. Redeploy. Messages will be sent from `onboarding@resend.dev` until you verify your own domain in Resend.
 
+If the form returns **500**: ensure `RESEND_API_KEY` and `CONTACT_EMAIL` are set in Vercel (Settings → Environment Variables) and redeploy.
+
 Usage
 
 Click nav links to jump between sections (smooth scroll).

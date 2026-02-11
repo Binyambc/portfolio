@@ -30,9 +30,9 @@ module.exports = async function handler(req, res) {
   const toEmail = process.env.CONTACT_EMAIL;
 
   if (!apiKey || !toEmail) {
-    console.error('Missing RESEND_API_KEY or CONTACT_EMAIL');
+    console.error('Missing RESEND_API_KEY or CONTACT_EMAIL in Vercel environment variables');
     return res.status(500).json({
-      error: 'Server misconfiguration. Please try again later.',
+      error: 'Contact form not configured. Set RESEND_API_KEY and CONTACT_EMAIL in Vercel.',
     });
   }
 
@@ -43,7 +43,11 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid JSON body' });
   }
 
-  const { name = '', email = '', message = '' } = body;
+  const { name = '', email = '', message = '', website = '' } = body;
+  if (String(website).trim()) {
+    return res.status(200).json({ success: true });
+  }
+
   const trimmedName = String(name).trim();
   const trimmedEmail = String(email).trim().toLowerCase();
   const trimmedMessage = String(message).trim();

@@ -100,7 +100,7 @@ function initScroll() {
 }
 
 // ===== INFINITE CAROUSEL (Projects + Skills) =====
-// One transform-based implementation: auto-scroll, touch drag, mouse drag. Clone track in JS for seamless loop.
+// Same logic for both: clone until track is at least 2× viewport, then seamless loop (no gap).
 function initInfiniteCarousel(carouselSelector, trackSelector, speed) {
     const carousel = getElement(carouselSelector);
     const track = getElement(trackSelector);
@@ -130,7 +130,9 @@ function initInfiniteCarousel(carouselSelector, trackSelector, speed) {
     function animate() {
         if (!isPaused) {
             position -= speed;
-            if (position <= -baseWidth) position += baseWidth;
+            if (position <= -baseWidth) {
+                position += baseWidth;
+            }
             track.style.transform = `translateX(${position}px)`;
         }
         requestAnimationFrame(animate);
@@ -172,9 +174,7 @@ function initInfiniteCarousel(carouselSelector, trackSelector, speed) {
         position += delta;
         track.style.transform = `translateX(${position}px)`;
     });
-    safeAddEventListener(carousel, "touchend", () => {
-        isPaused = false;
-    });
+    safeAddEventListener(carousel, "touchend", () => { isPaused = false; });
 
     safeAddEventListener(window, "resize", () => {
         while (track.children.length > originalCount) {

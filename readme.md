@@ -6,7 +6,7 @@ Features
 
 Header navigation with anchor links
 
-Sections: Home, Projects, Skills, About, Contact
+Sections: Home, Projects, Skills, About, Contact; Gallery page with lightbox
 
 Dark/Light mode toggle with icon
 
@@ -43,11 +43,25 @@ Right-click index.html → Open with Live Server
 File Structure
 .
 ├── index.html
+├── gallery.html
 ├── styles.css
 ├── main.js
+├── api/
+│ └── contact.js
 ├── images/
 │ └── ... (logos, gallery, profile, favicon)
-└── gallery.html
+└── readme.md
+
+Contact form (when deployed on Vercel)
+
+The contact form submits to a Vercel serverless function that sends email via Resend. To enable it:
+
+1. Sign up at [resend.com](https://resend.com) and get an API key.
+2. In the Vercel project dashboard: Settings → Environment Variables.
+3. Add:
+   - `RESEND_API_KEY` = your Resend API key
+   - `CONTACT_EMAIL` = the email where you want to receive messages (e.g. you@example.com)
+4. Redeploy. Messages will be sent from `onboarding@resend.dev` until you verify your own domain in Resend.
 
 Usage
 
@@ -59,7 +73,7 @@ Back to top appears after scrolling; click to return to the header.
 
 Customization
 
-Update colors in :root in styles.css (e.g., --accent-color).
+Update colors in :root in styles.css (e.g., --accent).
 
 Replace images in /images.
 
@@ -77,11 +91,10 @@ Keyboard-friendly focus states.
 
 Performance Tips
 
-Use .webp images where possible.
-
-Add loading="lazy" to noncritical images.
-
-Minify CSS/JS for production if needed.
+- **Images:** Use .webp where possible. Key images use `loading="lazy"` and `decoding="async"`. The LCP image (profile) is preloaded and has `fetchpriority="high"`. To reduce "Improve image delivery" further: resize images to the max display size (e.g. 400px wide for carousel) and compress (TinyPNG, Squoosh); consider `srcset` for responsive images.
+- **Render blocking:** Font Awesome loads asynchronously (`media="print"` then `onload`). Main script uses `defer`. Critical CSS is in `styles.css`; keep it lean.
+- **Fonts:** If you add a web font (e.g. Google Fonts for Raleway), use `&display=swap` in the URL so text shows immediately with a fallback font.
+- Minify CSS/JS for production if needed.
 
 Project filter/tags
 
@@ -93,7 +106,7 @@ MIT — use, modify, and share freely.
 
 Credits / Acknowledgments
 
-This was onriginally strated as a school project. (Business College Helsinki)
+This was originally started as a school project. (Business College Helsinki)
 
 Portfolio design and code by Binyam Angamo.
 

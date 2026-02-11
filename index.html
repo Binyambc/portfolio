@@ -2,33 +2,34 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Portfolio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Architect, vector designer, web developer"
-    />
+    <title>Portfolio</title>
+    <meta name="description" content="Architect, vector designer, web developer" />
+    <link rel="preload" as="image" href="images/profile_picture.webp" />
     <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      media="print"
+      onload="this.media='all'"
     />
-    <script
-      src="https://kit.fontawesome.com/your_kit_id.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="icon" href="/images/logo.webp" />
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /></noscript>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="icon" href="images/logo.webp" />
   </head>
   <body>
     <header>
       <div class="header-container">
         <div class="logo">
           <a href="#home"
-            ><img loading="lazy" src="images/logo.webp" alt="Logo"
+            ><img src="images/logo.webp" alt="Logo" width="23" height="20" decoding="async"
           /></a>
         </div>
         <nav>
           <div class="nav-links" id="navLinks">
+            <button class="close-menu" id="closeMenu" aria-label="Close menu">
+              <i class="fa fa-times"></i>
+            </button>
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#projects">Projects</a>
@@ -38,6 +39,8 @@
             <button id="darkModeToggle" aria-label="Toggle dark mode">
               <i id="darkModeIcon" class="fa-solid fa-moon"></i>
             </button>
+          </div>
+          <div class="button-group">
             <button class="hamburger" aria-label="Navigation menu">
               <i class="fa fa-bars"></i>
             </button>
@@ -45,27 +48,32 @@
         </nav>
       </div>
     </header>
-    <div></div>
+    <div class="header-spacer" aria-hidden="true"></div>
     <section id="home">
       <div class="profile-container">
         <img
-          src="/images/profile_picture.webp"
+          src="images/profile_picture.webp"
           alt="Binyam Angamo. Profile picture"
           class="profile-image"
+          width="150"
+          height="150"
+          fetchpriority="high"
+          decoding="async"
         />
         <div class="profile-text">
-          <h1>Welcome,</h1>
+          <h1>Binyam Angamo</h1>
           <p class="short-description">
-            I'm Binyam Angamo. A passionate student of life.
+            BSc. in Architecture & Urban Planning.<br />
+            Self-taught graphic designer, photographer and cook.<br />
+            Currently studying full-stack web development.
           </p>
           <div class="social-icons">
             <a href="https://github.com/Binyambc" aria-label="GitHub Profile">
               <i class="fab fa-github"></i>
             </a>
-            <br />
             <a
               href="https://www.linkedin.com/in/binyam-angamo-0611172b9/"
-              aria-label="linkedin Profile"
+              aria-label="LinkedIn Profile"
             >
               <i class="fab fa-linkedin"></i>
             </a>
@@ -78,122 +86,38 @@
       <h2>Projects</h2>
       <div class="carousel">
         <div class="carousel-track">
-          <img loading="lazy" src="images/zelephant.webp" alt="Zelephant" />
-          <img loading="lazy" src="images/stand_out.webp" alt="Stand out" />
-          <img loading="lazy" src="images/bunna.webp" alt="Bunna" />
-          <img loading="lazy" src="images/genna.webp" alt="Genna" />
-          <img loading="lazy" src="images/emblem_lion.webp" alt="Emblem lion" />
-          <img loading="lazy" src="images/gridLion.webp" alt="Grid lion" />
-          <img loading="lazy" src="images/hotel.webp" alt="Hotel" />
-          <img
-            loading="lazy"
-            src="images/residence_3d.webp"
-            alt="Residence 3s"
-          />
-          <img
-            loading="lazy"
-            src="images/residence_ground_floor.webp"
-            alt="Residence ground floor"
-          />
-          <img
-            loading="lazy"
-            src="images/residence_site_plan.webp"
-            alt="Residence first floor"
-          />
-
-          <img loading="lazy" src="images/zelephant.webp" alt="Zelephant" />
-          <img loading="lazy" src="images/stand_out.webp" alt="Stand out" />
-          <img loading="lazy" src="images/bunna.webp" alt="Bunna" />
-          <img loading="lazy" src="images/genna.webp" alt="Genna" />
-          <img loading="lazy" src="images/emblem_lion.webp" alt="Emblem lion" />
-          <img loading="lazy" src="images/gridLion.webp" alt="Grid lion" />
-          <img loading="lazy" src="images/hotel.webp" alt="Hotel" />
-          <img
-            loading="lazy"
-            src="images/residence_3d.webp"
-            alt="Residence 3s"
-          />
-          <img
-            loading="lazy"
-            src="images/residence_ground_floor.webp"
-            alt="Residence ground floor"
-          />
-          <img
-            loading="lazy"
-            src="images/residence_site_plan.webp"
-            alt="Residence first floor"
-          />
+          <img src="images/zelephant.webp" alt="Zelephant" loading="lazy" decoding="async" />
+          <img src="images/stand_out.webp" alt="Stand out" loading="lazy" decoding="async" />
+          <img src="images/bunna.webp" alt="Bunna" loading="lazy" decoding="async" />
+          <img src="images/genna.webp" alt="Genna" loading="lazy" decoding="async" />
+          <img src="images/emblem_lion.webp" alt="Emblem lion" loading="lazy" decoding="async" />
+          <img src="images/gridLion.webp" alt="Grid lion" loading="lazy" decoding="async" />
+          <img src="images/hotel.webp" alt="Hotel" loading="lazy" decoding="async" />
+          <img src="images/residence_3d.webp" alt="Residence 3D" loading="lazy" decoding="async" />
+          <img src="images/residence_ground_floor.webp" alt="Residence ground floor" loading="lazy" decoding="async" />
+          <img src="images/residence_site_plan.webp" alt="Residence site plan" loading="lazy" decoding="async" />
         </div>
       </div>
     </section>
 
     <section id="skills">
-      <div>
-        <div class="round_carousel">
-          <div class="center-text">SKILLS</div>
-          <div class="active-label"></div>
-          <img
-            class="icon"
-            loading="lazy"
-            src="images/logos/htmlLogo.webp"
-            alt="HTML"
-          />
-          <img
-            class="icon"
-            loading="lazy"
-            src="images/logos/javascriptLogo.webp"
-            alt="JavaScript"
-          />
-          <img
-            class="icon"
-            loading="lazy"
-            src="images/logos/reactLogo.webp"
-            alt="React"
-          />
-          <img
-            class="icon"
-            loading="lazy"
-            src="images/logos/cssLogo.webp"
-            alt="css"
-          />
-          <img
-            class="icon"
-            loading="lazy"
-            src="images/logos/autocadLogo.webp"
-            alt="AutoCAD"
-          />
-          <img
-            class="icon"
-            loading="lazy"
-            src="images/logos/sketchupLogo.webp"
-            alt="SketchUP!"
-          />
-          <img
-            class="icon"
-            loading="lazy"
-            src="images/logos/affinityDesignerLogo.webp"
-            alt="Affinity Designer"
-          />
-          <img
-            class="icon"
-            loading="lazy"
-            src="images/logos/figmaLogo.webp"
-            alt="Figma"
-          />
-          <img
-            class="icon"
-            loading="lazy"
-            src="images/logos/githubLogo.webp"
-            alt="GitHub"
-          />
-          <img
-            class="icon"
-            loading="lazy"
-            src="images/logos/officeLogo.webp"
-            alt="Office"
-          />
+      <div class="skills-carousel-wrapper">
+        <h2>Skills</h2>
+        <div class="skills-carousel">
+          <div class="skills-track">
+            <img src="images/logos/htmlLogo.webp" alt="HTML" class="skill-icon" loading="lazy" decoding="async" />
+            <img src="images/logos/javascriptLogo.webp" alt="JavaScript" class="skill-icon" loading="lazy" decoding="async" />
+            <img src="images/logos/reactLogo.webp" alt="React" class="skill-icon" loading="lazy" decoding="async" />
+            <img src="images/logos/cssLogo.webp" alt="CSS" class="skill-icon" loading="lazy" decoding="async" />
+            <img src="images/logos/autocadLogo.webp" alt="AutoCAD" class="skill-icon" loading="lazy" decoding="async" />
+            <img src="images/logos/sketchupLogo.webp" alt="SketchUp" class="skill-icon" loading="lazy" decoding="async" />
+            <img src="images/logos/affinityDesignerLogo.webp" alt="Affinity Designer" class="skill-icon" loading="lazy" decoding="async" />
+            <img src="images/logos/figmaLogo.webp" alt="Figma" class="skill-icon" loading="lazy" decoding="async" />
+            <img src="images/logos/githubLogo.webp" alt="GitHub" class="skill-icon" loading="lazy" decoding="async" />
+            <img src="images/logos/officeLogo.webp" alt="Office" class="skill-icon" loading="lazy" decoding="async" />
+          </div>
         </div>
-        <p>🇪🇹 Amharic(mother tongue) 🇬🇧 English 🇫🇮 Finnish 🇪🇹 Tigrigna</p>
+        <p><span>🇪🇹 Amharic(mother tongue)</span> <span>🇬🇧 English</span> <span>🇫🇮 Finnish</span> <span>🇪🇹 Tigrigna</span></p>
       </div>
     </section>
 
@@ -205,14 +129,14 @@
           <p class="about-contents">
             Studied Architecture and Urban Planning at Addis Ababa University
             and graduated with a BSc. in 2007. After graduation, I spent
-            sometime time working on private residences, apartment and hotel
+            some time working on private residences, apartment and hotel
             buildings.
           </p>
         </div>
         <div class="about-card">
           <h3>Vector Designer</h3>
           <p class="about-contents">
-            My choice of appllication for vector so far has been Affinity
+            My choice of application for vector so far has been Affinity
             designer. Most of the works that I have done are expressions of my
             passion towards my roots from Ethiopia.
           </p>
@@ -220,7 +144,7 @@
         <div class="about-card">
           <h3>Photographer</h3>
           <p class="about-contents">
-            This has been a passion that I pushed with the least convinient
+            This has been a passion that I pushed with the least convenient
             possible tools. I knew anyway that I have keen eye for good
             juxtaposition and framing. My go to subjects are urban corridors
             mostly reflected in puddles.
@@ -232,38 +156,38 @@
             I have spent over five years as an entrepreneur running a small plc
             providing delivery services and export. After this I also co-founded
             and run a furniture recycling and upcycling firm where me and my
-            business partner praticed circular economy extending the life cycle
+            business partner practiced circular economy extending the life cycle
             of furnitures that otherwise would have been regarded as waste.
           </p>
         </div>
         <div class="about-card">
           <h3>Full stack web developer</h3>
           <p class="about-contents">
-            I have always been curios about coding and but never got the chance
+            I have always been curious about coding but never got the chance
             to study it. On January of 2025, I joined the Full stack web
-            developer program provide at Business College Helsinki. I have now a
-            much better understand of HTML, JS, CSS and some basics of React,
+            developer program provided at Business College Helsinki. I have now a
+            much better understanding of HTML, JS, CSS and some basics of React,
             PHP, Laravel and Database systems. Git/GitHub is the main platform
-            we use for version control whilst studiyng some of AWS services.
+            we use for version control whilst studying some of AWS services.
           </p>
         </div>
         <div class="about-card">
           <h3>Self claimed cook</h3>
           <p class="about-contents">
-            This is a passion that formed out of neccessity. I did work in at a
+            This is a passion that formed out of necessity. I did work at a
             restaurant during my studies but at the same time living away from
             home where you have to do everything yourself forced me to learn to
             cook and set plates in appealing manners.
           </p>
         </div>
-        <h4>Details on each projects coming in the next phase.</h3>
+        <h4>Details on each project coming in the next phase.</h4>
       </div>
     </section>
 
     <section id="contact">
       <h2>Contact Me</h2>
       <p>Feel free to reach out by filling in the form below:</p>
-      <form>
+      <form id="contactForm" novalidate>
         <input type="text" name="name" placeholder="Your Name" required />
         <input type="email" name="email" placeholder="Your Email" required />
         <textarea
@@ -272,12 +196,13 @@
           rows="5"
           required
         ></textarea>
-        <button type="submit">Send Message</button>
+        <p id="contactFormMessage" class="contact-form-message" aria-live="polite" hidden></p>
+        <button type="submit" id="contactSubmitBtn">Send Message</button>
       </form>
     </section>
     <button class="back_to_top_btn" id="topBtn" aria-label="Back to top">
       <i class="fa-solid fa-arrow-up"></i>
     </button>
-    <script src="main.js"></script>
+    <script src="main.js" defer></script>
   </body>
 </html>

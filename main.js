@@ -191,35 +191,94 @@ function initInfiniteCarousel(carouselSelector, trackSelector, speed) {
     });
 }
 
-// ===== PROJECT LIGHTBOX (click carousel image → lightbox with prev/next) =====
-function initProjectLightbox() {
-    const track = getElement('.carousel-track');
-    const lightbox = getElementById('projectLightbox');
-    const lightboxImage = getElementById('projectLightboxImage');
-    const closeBtn = getElementById('projectLightboxClose');
-    const prevBtn = getElementById('projectLightboxPrev');
-    const nextBtn = getElementById('projectLightboxNext');
+// ===== ABOUT LIGHTBOX (click about card → lightbox with detail text + category images) =====
+const ABOUT_DATA = {
+    'architect': {
+        title: 'Architect',
+        text: 'Studied Architecture and Urban Planning at Addis Ababa University and graduated with a BSc. in 2007. After graduation, I spent some time working on private residences, apartment and hotel buildings.',
+        images: [
+            { src: 'images/hotel.webp', alt: 'Hotel' },
+            { src: 'images/residence_3d.webp', alt: 'Residence 3D' },
+            { src: 'images/residence_ground_floor.webp', alt: 'Residence ground floor' },
+            { src: 'images/residence_site_plan.webp', alt: 'Residence site plan' }
+        ]
+    },
+    'vector-designer': {
+        title: 'Vector Designer',
+        text: 'My choice of application for vector so far has been Affinity designer. Most of the works that I have done are expressions of my passion towards my roots from Ethiopia.',
+        images: [
+            { src: 'images/zelephant.webp', alt: 'Zelephant' },
+            { src: 'images/genna.webp', alt: 'Genna' },
+            { src: 'images/bunna.webp', alt: 'Bunna' },
+            { src: 'images/emblem_lion.webp', alt: 'Emblem lion' },
+            { src: 'images/gridLion.webp', alt: 'Grid lion' }
+        ]
+    },
+    'photographer': {
+        title: 'Photographer',
+        text: 'This has been a passion that I pushed with the least convenient possible tools. I knew anyway that I have keen eye for good juxtaposition and framing. My go to subjects are urban corridors mostly reflected in puddles.',
+        images: [
+            { src: 'images/stand_out.webp', alt: 'Stand out' }
+        ]
+    },
+    'entrepreneur': {
+        title: 'Entrepreneur',
+        text: 'I have spent over five years as an entrepreneur running a small plc providing delivery services and export. After this I also co-founded and run a furniture recycling and upcycling firm where me and my business partner practiced circular economy extending the life cycle of furnitures that otherwise would have been regarded as waste.',
+        images: [
+            { src: 'images/unelma-logo.jpg', alt: 'Unelma' }
+        ]
+    },
+    'full-stack': {
+        title: 'Full stack web developer',
+        text: 'I have always been curious about coding but never got the chance to study it. On January of 2025, I joined the Full stack web developer program provided at Business College Helsinki. I have now a much better understanding of HTML, JS, CSS and some basics of React, PHP, Laravel and Database systems. Git/GitHub is the main platform we use for version control whilst studying some of AWS services.',
+        images: []
+    },
+    'cook': {
+        title: 'Self claimed cook',
+        text: 'This is a passion that formed out of necessity. I did work at a restaurant during my studies but at the same time living away from home where you have to do everything yourself forced me to learn to cook and set plates in appealing manners.',
+        images: []
+    }
+};
 
-    if (!track || !lightbox || !lightboxImage) return;
+function initAboutLightbox() {
+    const lightbox = getElementById('aboutLightbox');
+    const titleEl = getElementById('aboutLightboxTitle');
+    const textEl = getElementById('aboutLightboxText');
+    const galleryEl = getElementById('aboutLightboxGallery');
+    const closeBtn = getElementById('aboutLightboxClose');
 
-    const allImgs = Array.from(track.querySelectorAll('img'));
-    const seen = new Set();
-    const unique = [];
-    allImgs.forEach((img) => {
-        if (!seen.has(img.src)) {
-            seen.add(img.src);
-            unique.push({ src: img.src, alt: img.alt });
-        }
-    });
-    if (unique.length === 0) return;
+    if (!lightbox || !titleEl || !textEl || !galleryEl) return;
 
-    let currentIndex = 0;
-
-    function open(index) {
-        currentIndex = (index + unique.length) % unique.length;
-        const item = unique[currentIndex];
-        lightboxImage.src = item.src;
-        lightboxImage.alt = item.alt;
+    function open(key) {
+        const data = ABOUT_DATA[key];
+        if (!data) return;
+        titleEl.textContent = data.title;
+        textEl.textContent = data.text;
+        galleryEl.innerHTML = '';
+        data.images.forEach(function (img, idx) {
+            const el = document.createElement('img');
+            el.src = img.src;
+            el.alt = img.alt;
+            el.loading = 'lazy';
+            el.setAttribute('role', 'button');
+            el.setAttribute('tabindex', '0');
+            safeAddEventListener(el, 'click', function () {
+                close();
+                if (typeof window.openImageLightbox === 'function') {
+                    window.openImageLightbox(data.images, idx);
+                }
+            });
+            safeAddEventListener(el, 'keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    close();
+                    if (typeof window.openImageLightbox === 'function') {
+                        window.openImageLightbox(data.images, idx);
+                    }
+                }
+            });
+            galleryEl.appendChild(el);
+        });
         lightbox.classList.add('is-open');
         lightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
@@ -231,12 +290,141 @@ function initProjectLightbox() {
         document.body.style.overflow = '';
     }
 
-    safeAddEventListener(track, 'click', (e) => {
-        const img = e.target.closest('img');
-        if (!img) return;
-        const idx = unique.findIndex((u) => u.src === img.src);
-        if (idx >= 0) open(idx);
+    getElements('.about-card').forEach(function (card) {
+        const key = card.getAttribute('data-about');
+        if (key) safeAddEventListener(card, 'click', function () { open(key); });
     });
+
+    if (closeBtn) safeAddEventListener(closeBtn, 'click', close);
+    safeAddEventListener(lightbox, 'click', function (e) {
+        if (e.target === lightbox) close();
+    });
+    document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('is-open')) return;
+        if (e.key === 'Escape') close();
+    });
+}
+
+// ===== PROJECT LIGHTBOX (click carousel image or about gallery image → lightbox with prev/next + pinch zoom) =====
+function initProjectLightbox() {
+    const track = getElement('.carousel-track');
+    const lightbox = getElementById('projectLightbox');
+    const lightboxImage = getElementById('projectLightboxImage');
+    const closeBtn = getElementById('projectLightboxClose');
+    const prevBtn = getElementById('projectLightboxPrev');
+    const nextBtn = getElementById('projectLightboxNext');
+
+    if (!lightbox || !lightboxImage) return;
+
+    const allImgs = track ? Array.from(track.querySelectorAll('img')) : [];
+    const seen = new Set();
+    const defaultList = [];
+    allImgs.forEach((img) => {
+        if (!seen.has(img.src)) {
+            seen.add(img.src);
+            defaultList.push({ src: img.src, alt: img.alt });
+        }
+    });
+
+    let customList = null;
+    function getImageList() {
+        return (customList && customList.length) ? customList : defaultList;
+    }
+
+    let currentIndex = 0;
+
+    let scale = 1;
+    let translateX = 0;
+    let translateY = 0;
+    let pinchStartDist = 0;
+    let pinchStartScale = 1;
+    let lastCenterX = 0;
+    let lastCenterY = 0;
+
+    function resetZoom() {
+        scale = 1;
+        translateX = 0;
+        translateY = 0;
+        lightboxImage.style.transform = '';
+    }
+
+    function applyZoom() {
+        lightboxImage.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    }
+
+    function open(index) {
+        const list = getImageList();
+        if (list.length === 0) return;
+        currentIndex = (index + list.length) % list.length;
+        const item = list[currentIndex];
+        lightboxImage.src = item.src;
+        lightboxImage.alt = item.alt;
+        resetZoom();
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+        customList = null;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        resetZoom();
+    }
+
+    function openWithImages(images, index) {
+        if (!images || !images.length) return;
+        customList = images.map(function (img) { return { src: img.src, alt: img.alt }; });
+        open(typeof index === 'number' ? index : 0);
+    }
+
+    window.openImageLightbox = openWithImages;
+
+    function getTouchDistance(touches) {
+        return Math.hypot(touches[0].clientX - touches[1].clientX, touches[0].clientY - touches[1].clientY);
+    }
+    function getTouchCenter(touches) {
+        return { x: (touches[0].clientX + touches[1].clientX) / 2, y: (touches[0].clientY + touches[1].clientY) / 2 };
+    }
+
+    safeAddEventListener(lightboxImage, 'touchstart', (e) => {
+        if (e.touches.length === 2) {
+            e.preventDefault();
+            pinchStartDist = getTouchDistance(e.touches);
+            pinchStartScale = scale;
+            const c = getTouchCenter(e.touches);
+            lastCenterX = c.x;
+            lastCenterY = c.y;
+        }
+    }, { passive: false });
+
+    safeAddEventListener(lightboxImage, 'touchmove', (e) => {
+        if (e.touches.length === 2) {
+            e.preventDefault();
+            const dist = getTouchDistance(e.touches);
+            const c = getTouchCenter(e.touches);
+            scale = Math.max(0.5, Math.min(4, pinchStartScale * (dist / pinchStartDist)));
+            translateX += c.x - lastCenterX;
+            translateY += c.y - lastCenterY;
+            lastCenterX = c.x;
+            lastCenterY = c.y;
+            applyZoom();
+        }
+    }, { passive: false });
+
+    safeAddEventListener(lightboxImage, 'touchend', (e) => {
+        if (e.touches.length < 2) pinchStartDist = 0;
+    });
+
+    if (track && defaultList.length) {
+        safeAddEventListener(track, 'click', (e) => {
+            const img = e.target.closest('img');
+            if (!img) return;
+            const idx = defaultList.findIndex((u) => u.src === img.src);
+            if (idx >= 0) open(idx);
+        });
+    }
 
     if (closeBtn) safeAddEventListener(closeBtn, 'click', close);
     if (prevBtn) safeAddEventListener(prevBtn, 'click', (e) => { e.stopPropagation(); open(currentIndex - 1); });
@@ -327,8 +515,8 @@ function init() {
     try { initTheme(); } catch (e) { console.warn('initTheme', e); }
     try { initScroll(); } catch (e) { console.warn('initScroll', e); }
     try { initInfiniteCarousel(".carousel", ".carousel-track", 1); } catch (e) { console.warn('initCarousel', e); }
-    try { initInfiniteCarousel(".skills-carousel", ".skills-track", 0.6); } catch (e) { console.warn('initSkillsCarousel', e); }
     try { initProjectLightbox(); } catch (e) { console.warn('initProjectLightbox', e); }
+    try { initAboutLightbox(); } catch (e) { console.warn('initAboutLightbox', e); }
     try { initContactForm(); } catch (e) { console.warn('initContactForm', e); }
 }
 

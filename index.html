@@ -97,6 +97,7 @@
           <img src="images/residence_site_plan.webp" alt="Residence site plan" loading="lazy" decoding="async" />
         </div>
       </div>
+      <p class="projects-hint">Click on an image to see it closeup.</p>
     </section>
 
     <section id="skills">
@@ -123,63 +124,30 @@
     <section id="about">
       <h2>About</h2>
       <div class="about">
-        <div class="about-card">
+        <button type="button" class="about-card" data-about="architect" aria-label="Open Architect details">
+          <i class="fa-solid fa-building" aria-hidden="true"></i>
           <h3>Architect</h3>
-          <p class="about-contents">
-            Studied Architecture and Urban Planning at Addis Ababa University
-            and graduated with a BSc. in 2007. After graduation, I spent
-            some time working on private residences, apartment and hotel
-            buildings.
-          </p>
-        </div>
-        <div class="about-card">
+        </button>
+        <button type="button" class="about-card" data-about="vector-designer" aria-label="Open Vector Designer details">
+          <i class="fa-solid fa-pen-ruler" aria-hidden="true"></i>
           <h3>Vector Designer</h3>
-          <p class="about-contents">
-            My choice of application for vector so far has been Affinity
-            designer. Most of the works that I have done are expressions of my
-            passion towards my roots from Ethiopia.
-          </p>
-        </div>
-        <div class="about-card">
+        </button>
+        <button type="button" class="about-card" data-about="photographer" aria-label="Open Photographer details">
+          <i class="fa-solid fa-camera" aria-hidden="true"></i>
           <h3>Photographer</h3>
-          <p class="about-contents">
-            This has been a passion that I pushed with the least convenient
-            possible tools. I knew anyway that I have keen eye for good
-            juxtaposition and framing. My go to subjects are urban corridors
-            mostly reflected in puddles.
-          </p>
-        </div>
-        <div class="about-card">
+        </button>
+        <button type="button" class="about-card" data-about="entrepreneur" aria-label="Open Entrepreneur details">
+          <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
           <h3>Entrepreneur</h3>
-          <p class="about-contents">
-            I have spent over five years as an entrepreneur running a small plc
-            providing delivery services and export. After this I also co-founded
-            and run a furniture recycling and upcycling firm where me and my
-            business partner practiced circular economy extending the life cycle
-            of furnitures that otherwise would have been regarded as waste.
-          </p>
-        </div>
-        <div class="about-card">
+        </button>
+        <button type="button" class="about-card" data-about="full-stack" aria-label="Open Full stack web developer details">
+          <i class="fa-solid fa-code" aria-hidden="true"></i>
           <h3>Full stack web developer</h3>
-          <p class="about-contents">
-            I have always been curious about coding but never got the chance
-            to study it. On January of 2025, I joined the Full stack web
-            developer program provided at Business College Helsinki. I have now a
-            much better understanding of HTML, JS, CSS and some basics of React,
-            PHP, Laravel and Database systems. Git/GitHub is the main platform
-            we use for version control whilst studying some of AWS services.
-          </p>
-        </div>
-        <div class="about-card">
+        </button>
+        <button type="button" class="about-card" data-about="cook" aria-label="Open Self claimed cook details">
+          <i class="fa-solid fa-utensils" aria-hidden="true"></i>
           <h3>Self claimed cook</h3>
-          <p class="about-contents">
-            This is a passion that formed out of necessity. I did work at a
-            restaurant during my studies but at the same time living away from
-            home where you have to do everything yourself forced me to learn to
-            cook and set plates in appealing manners.
-          </p>
-        </div>
-        <h4>Details on each project coming in the next phase.</h4>
+        </button>
       </div>
     </section>
 
@@ -203,6 +171,9 @@
         <button type="submit" id="contactSubmitBtn">Send Message</button>
       </form>
     </section>
+    <footer class="site-footer">
+      <p>&copy; Binyam Angamo 2025</p>
+    </footer>
     <button class="back_to_top_btn" id="topBtn" aria-label="Back to top">
       <i class="fa-solid fa-arrow-up"></i>
     </button>
@@ -219,6 +190,17 @@
       </button>
       <div class="lightbox-content">
         <img id="projectLightboxImage" src="" alt="" />
+      </div>
+    </div>
+
+    <div id="aboutLightbox" class="lightbox about-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="About category details">
+      <button type="button" class="lightbox-close" id="aboutLightboxClose" aria-label="Close">
+        <i class="fa fa-times"></i>
+      </button>
+      <div class="about-lightbox-content">
+        <h2 id="aboutLightboxTitle"></h2>
+        <p id="aboutLightboxText" class="about-lightbox-text"></p>
+        <div id="aboutLightboxGallery" class="about-lightbox-gallery"></div>
       </div>
     </div>
 

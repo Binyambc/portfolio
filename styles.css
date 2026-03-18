@@ -5,10 +5,20 @@
   --bg-dark: #121212;
   --section-bg: #ffffff;
   --section-dark: #1a1a1a;
-  /* Full-page gradient (light theme) – white dominant with subtle orange wash */
-  --page-gradient: linear-gradient(145deg, #ffffff 0%, #ffffff 25%, #fffbf8 45%, #fff8f2 65%, #ffffff 85%, #ffffff 100%);
-  /* Full-page gradient (dark theme) – diagonal, deep with accent undertones */
-  --page-gradient-dark: linear-gradient(140deg, #0a0812 0%, #15101c 25%, #1c1218 50%, #1a0f14 75%, #120a0e 100%);
+  /* Full-page gradient (light theme) – layered clouds + subtle orange wash */
+  --page-gradient:
+    radial-gradient(1000px 520px at 18% 16%, rgba(255, 184, 110, 0.32) 0%, rgba(255, 184, 110, 0) 70%),
+    radial-gradient(980px 540px at 86% 22%, rgba(255, 150, 70, 0.22) 0%, rgba(255, 150, 70, 0) 72%),
+    radial-gradient(1100px 620px at 44% 88%, rgba(255, 205, 150, 0.22) 0%, rgba(255, 205, 150, 0) 75%),
+    radial-gradient(1200px 680px at 30% 70%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 62%),
+    linear-gradient(145deg, #ffffff 0%, #ffffff 55%, #fff4e8 70%, #ffffff 100%);
+
+  /* Full-page gradient (dark theme) – layered depth with warm undertone */
+  --page-gradient-dark:
+    radial-gradient(1100px 620px at 18% 18%, rgba(225, 89, 0, 0.10) 0%, rgba(225, 89, 0, 0) 72%),
+    radial-gradient(1000px 580px at 82% 26%, rgba(255, 140, 80, 0.08) 0%, rgba(255, 140, 80, 0) 70%),
+    radial-gradient(1200px 700px at 55% 86%, rgba(90, 40, 70, 0.14) 0%, rgba(90, 40, 70, 0) 72%),
+    linear-gradient(140deg, #0a0812 0%, #15101c 35%, #1a0f14 72%, #120a0e 100%);
   --header-spacer-height: 56px;
   --header-edge-gap: 23px;
   --mobile-nav-item-spacing-top: 20px;
@@ -32,19 +42,36 @@ body {
   line-height: 1.6;
   background: var(--page-gradient);
   background-attachment: fixed;
-  background-size: 100% 100%;
+  background-size: 220% 220%;
+  background-position: 0% 50%;
   color: #000;
   transition: background 0.3s, color 0.3s;
+  animation: pageGradientDrift 18s ease-in-out infinite;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+@keyframes pageGradientDrift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+    background-size: 100% 100%;
+    background-position: 50% 50%;
+  }
 }
 
 /* ================= DARK MODE ================= */
 body.dark-mode {
   background: var(--page-gradient-dark);
   background-attachment: fixed;
-  background-size: 100% 100%;
+  background-size: 220% 220%;
+  background-position: 0% 50%;
   color: var(--accent);
 }
 
@@ -178,6 +205,7 @@ nav a {
   text-decoration: none;
   font-size: 14px;
   padding: 8px 12px;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
 /* Theme toggle in navigation on desktop */
@@ -199,7 +227,8 @@ nav a {
 }
 
 nav a:hover {
-  background: rgb(0, 0, 0);
+  background: none;
+  transform: scale(1.05);
 }
 
 .nav-links {
@@ -291,8 +320,9 @@ nav a:hover {
   }
   
   .nav-links a:hover {
-    background-color: rgba(225, 89, 0, 0.1);
+    background-color: transparent;
     color: rgb(255, 145, 71) !important;
+    transform: scale(1.05);
   }
   
   /* Theme toggle in mobile menu - match nav link styling, same spacing as links */
@@ -653,21 +683,20 @@ h2 {
   padding: 1.5rem 1rem;
   flex-shrink: 0;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: none;
+  border: none;
+  outline: 1px solid var(--accent);
+  outline-offset: 1px;
   border-radius: 0;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
   cursor: pointer;
   font-family: inherit;
   color: inherit;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .about-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
 }
 
 .about-card i {
@@ -707,9 +736,10 @@ h2 {
 }
 
 body.dark-mode .about-card {
-  background: rgba(20, 18, 22, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  background: none;
+  border: none;
+  outline: 1px solid var(--accent);
+  outline-offset: 1px;
 }
 
 /* About lightbox: detail text + category images */

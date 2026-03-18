@@ -101,92 +101,148 @@ function initScroll() {
 
 // ===== INFINITE CAROUSEL (Projects + Skills) =====
 // Same logic for both: clone until track is at least 2× viewport, then seamless loop (no gap).
-function initInfiniteCarousel(carouselSelector, trackSelector, speed) {
-    const carousel = getElement(carouselSelector);
-    const track = getElement(trackSelector);
+function initInfiniteCarousel(carouselSelector, trackSelector, speed = 0.5) {
+    const carousel = document.querySelector(carouselSelector);
+    const track = document.querySelector(trackSelector);
     if (!carousel || !track) return;
 
     let position = 0;
+    let baseWidth = 0;
+    let repeatCount = 1;
+
     let isPaused = false;
     let isDragging = false;
-    let baseWidth = 0;
-    let originalCount = 0;
+    let startX = 0;
 
-    function cloneUntilFilled() {
-        if (originalCount === 0) {
-            originalCount = track.children.length;
-        }
-        const originals = Array.from(track.children);
-        while (track.scrollWidth < carousel.offsetWidth * 2) {
-            originals.forEach((node) => {
+    let originalItems = [];
+
+    function recalcBaseWidth() {
+        const originalsLen = originalItems.length || 1;
+        repeatCount = Math.max(1, Math.round(track.children.length / originalsLen));
+        baseWidth = repeatCount > 0 ? (track.scrollWidth / repeatCount) : track.scrollWidth;
+    }
+
+    // --- Setup clones ---
+    function setup() {
+        // Reset
+        track.innerHTML = "";
+        position = 0;
+
+        // Rebuild track
+        originalItems.forEach(el => track.appendChild(el));
+        recalcBaseWidth();
+
+        // Clone original set until we cover the viewport + one full cycle
+        while (track.scrollWidth < carousel.offsetWidth + baseWidth) {
+            originalItems.forEach(node => {
                 const clone = node.cloneNode(true);
                 clone.setAttribute("aria-hidden", "true");
                 track.appendChild(clone);
             });
+            recalcBaseWidth();
         }
-        baseWidth = track.scrollWidth / 2;
+
+        track.style.transform = `translateX(0px)`;
     }
 
+    // --- Animation loop ---
     function animate() {
-        if (!isPaused) {
+        if (!isPaused && !isDragging) {
             position -= speed;
-            if (position <= -baseWidth) {
-                position += baseWidth;
-            }
-            track.style.transform = `translateX(${position}px)`;
         }
+
+        // Seamless wrap
+        if (position <= -baseWidth || position > 0) {
+            recalcBaseWidth();
+            if (baseWidth > 0) {
+                while (position <= -baseWidth) position += baseWidth;
+                while (position > 0) position -= baseWidth;
+            }
+        }
+
+        track.style.transform = `translateX(${position}px)`;
         requestAnimationFrame(animate);
     }
 
-    safeAddEventListener(carousel, "mouseenter", () => { isPaused = true; });
-    safeAddEventListener(carousel, "mouseleave", () => {
-        isPaused = false;
-        isDragging = false;
+    // --- Mouse drag ---
+    carousel.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        isPaused = true;
+        startX = e.clientX;
+        e.preventDefault();
     });
 
-    let startX = 0;
-    safeAddEventListener(carousel, "mousedown", (e) => {
-        e.preventDefault();
-        isPaused = true;
-        isDragging = true;
-        startX = e.clientX;
-    });
-    safeAddEventListener(carousel, "mousemove", (e) => {
+    window.addEventListener("mousemove", (e) => {
         if (!isDragging) return;
+
         const delta = e.clientX - startX;
         startX = e.clientX;
         position += delta;
-        track.style.transform = `translateX(${position}px)`;
-    });
-    safeAddEventListener(carousel, "mouseup", () => {
-        isPaused = false;
-        isDragging = false;
     });
 
-    safeAddEventListener(carousel, "touchstart", (e) => {
+    window.addEventListener("mouseup", () => {
+        isDragging = false;
+        isPaused = false;
+
+        // Normalize after drag
+        recalcBaseWidth();
+        if (baseWidth > 0) {
+            while (position > 0) position -= baseWidth;
+            while (position <= -baseWidth) position += baseWidth;
+        }
+    });
+
+    // --- Touch drag ---
+    carousel.addEventListener("touchstart", (e) => {
+        isDragging = true;
         isPaused = true;
         startX = e.touches[0].clientX;
     });
-    safeAddEventListener(carousel, "touchmove", (e) => {
+
+    carousel.addEventListener("touchmove", (e) => {
+        if (!isDragging) return;
+
         const currentX = e.touches[0].clientX;
         const delta = currentX - startX;
         startX = currentX;
         position += delta;
-        track.style.transform = `translateX(${position}px)`;
     });
-    safeAddEventListener(carousel, "touchend", () => { isPaused = false; });
 
-    safeAddEventListener(window, "resize", () => {
-        while (track.children.length > originalCount) {
-            track.removeChild(track.lastChild);
+    carousel.addEventListener("touchend", () => {
+        isDragging = false;
+        isPaused = false;
+
+        recalcBaseWidth();
+        if (baseWidth > 0) {
+            while (position > 0) position -= baseWidth;
+            while (position <= -baseWidth) position += baseWidth;
         }
-        track.style.transform = "translateX(0)";
-        position = 0;
-        cloneUntilFilled();
     });
 
-    safeAddEventListener(window, "load", () => {
-        cloneUntilFilled();
+    // --- Hover pause ---
+    carousel.addEventListener("mouseenter", () => isPaused = true);
+    carousel.addEventListener("mouseleave", () => {
+        if (!isDragging) isPaused = false;
+    });
+
+    // --- Resize handling ---
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            setup();
+        }, 100);
+    });
+
+    // --- Init ---
+    window.addEventListener("load", () => {
+        // Capture originals BEFORE clearing
+        originalItems = Array.from(track.children);
+        // If images are lazy-loading, widths can still change after load; keep baseWidth fresh.
+        track.querySelectorAll('img').forEach((img) => {
+            safeAddEventListener(img, 'load', recalcBaseWidth);
+        });
+        setup();
         animate();
     });
 }
